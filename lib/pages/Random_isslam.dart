@@ -56,10 +56,13 @@ class MenuCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: SizedBox(
-                height: 300,
-                child: Image.network(
-                    'https://flutter.dev/images/flutter-logo-sharing.png'),
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/issa.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             Row(
