@@ -83,4 +83,10 @@ class DatabaseHelper {
     Database db = await database;
     return await db.query('food');
   }
+
+  // เพิ่มใน DatabaseHelper
+  Future<List<Map<String, dynamic>>> getFilteredFood(String type) async {
+    Database db = await database;
+    return await db.query('food', where: 'type = ?', whereArgs: [type]);
+  }
 }

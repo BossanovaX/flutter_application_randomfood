@@ -50,7 +50,8 @@ class _MenuCardState extends State<MenuCard> {
   }
 
   Future<void> getitem() async {
-    final itemlist = await _dbhelper.getfood();
+    // แก้ไขให้กรองเฉพาะรายการอาหารเช้า
+    final itemlist = await _dbhelper.getFilteredFood('อาหารเช้า');
     setState(() {
       _item = itemlist;
     });
