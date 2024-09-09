@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_randomfood/pages/filp10_desert.dart';
-import 'package:flutter_application_randomfood/pages/filp1_desert.dart';
 
-class desert extends StatelessWidget {
+import 'package:flutter_application_randomfood/filp/filp10_lunch.dart';
+
+import 'package:flutter_application_randomfood/filp/filp1_lunch.dart';
+import 'package:flutter_application_randomfood/services/database_service.dart';
+
+class RandomDesert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +23,49 @@ class desert extends StatelessWidget {
   }
 }
 
-class MenuCard extends StatelessWidget {
+class MenuCard extends StatefulWidget {
+  @override
+  State<MenuCard> createState() => _MenuCardState();
+}
+
+class _MenuCardState extends State<MenuCard> {
+  final _foodnameController = TextEditingController();
+
+  final _fooddecController = TextEditingController();
+
+  final DatabaseHelper _dbhelper = DatabaseHelper.instance;
+  List<Map<String, dynamic>> _item = [];
+
+  Future<void> additem() async {
+    final foodname = _foodnameController.text;
+    final fooddec = _fooddecController.text;
+
+    if (foodname.isNotEmpty && fooddec.isNotEmpty) {
+      await _dbhelper.insertFood(foodname, fooddec);
+      _foodnameController.clear();
+      _fooddecController.clear();
+      print('Added $foodname to the database');
+      getitem();
+    } else {
+      print('Please enter both food name and description');
+    }
+  }
+
+  Future<void> getitem() async {
+    // แก้ไขให้กรองเฉพาะรายการอาหารเช้า
+    final itemlist = await _dbhelper.getfoodbytype2('ของหวาน');
+    setState(() {
+      _item = itemlist;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getitem(); // โหลดข้อมูลเมื่อเริ่มต้น
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,13 +87,41 @@ class MenuCard extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
-                Positioned(
-                  right: 0,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: IconButton(
                     icon: Icon(Icons.help_outline,
                         color: const Color.fromARGB(255, 0, 0, 0)),
                     onPressed: () {
-                      // โค้ดเมื่อกดปุ่มเครื่องหมายคำถาม
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          insetPadding: const EdgeInsets.all(16),
+                          title: Text('รายการอาหาร'),
+                          content: SizedBox(
+                            width: 300,
+                            height: 300,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ListView.builder(
+                                    physics: ScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: _item.length,
+                                    itemBuilder: (context, index) {
+                                      final fooditem = _item[index];
+                                      return ListTile(
+                                        title: Text(fooditem['name']),
+                                        subtitle: Text(fooditem['description']),
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -58,18 +131,24 @@ class MenuCard extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: SizedBox(
                 height: 300,
-                child: Image.network(
-                    'https://cdn.discordapp.com/attachments/1153664982374961223/1270800180358287401/aeedc89b397e3d0f.png?ex=66bb9be5&is=66ba4a65&hm=2d4c725eca4e6bf913dafba9a67155f5fc12deed2911098c67eece7d5c307df3'),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/desert.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return Filp1Desert();
+                      return Filp1Lunch();
                     }));
                     // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },
@@ -77,10 +156,10 @@ class MenuCard extends StatelessWidget {
                   child: Text('สุ่ม 1 ครั้ง'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return Filp10Desert();
+                      return Filp10Lunch();
                     }));
                     // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },

@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: bgscreen(),
+      //home: testfilp10(),
     );
   }
 }
@@ -44,29 +45,29 @@ class MenuScreen extends StatelessWidget {
                     // Handle logout action
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 236, 7, 7),
-                    foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                    backgroundColor: const Color.fromARGB(255, 236, 7, 7),
+                    foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: Text('Logout'),
+                  child: const Text('Logout'),
                 ),
               ),
-              SizedBox(height: 40),
-              Center(
+              const SizedBox(height: 40),
+              const Center(
                 child: Text(
                   'Menu',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
-              Divider(
+              const Divider(
                 color: Color.fromARGB(255, 245, 47, 12),
                 thickness: 2,
                 indent: 100,
                 endIndent: 100,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MenuButton(
                 title: 'สุ่มอาหารเช้า',
                 onPressed: () {
@@ -94,47 +95,34 @@ class MenuScreen extends StatelessWidget {
                   // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
                 },
               ),
+              const SizedBox(height: 20),
+              const Center(
+                child: Text(
+                  'เมนูอาหารทั่วไป',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 245, 47, 12),
+                thickness: 2,
+                indent: 100,
+                endIndent: 100,
+              ),
+              const SizedBox(height: 20),
               MenuButton(
                 title: 'สุ่มอาหารอิสลาม',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return isslam();
+                    return issalam();
                   }));
                   // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
                 },
               ),
               MenuButton(
-                title: 'สุ่มอาหารทั่วไป',
+                title: 'สุ่มอาหารจานเดียว',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return normal();
-                  }));
-                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
-                },
-              ),
-              MenuButton(
-                title: 'สุ่มอาหารประเภทเส้น',
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return sen();
-                  }));
-                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
-                },
-              ),
-              MenuButton(
-                title: 'สุ่มอาหารประเภทข้าว',
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Khao();
-                  }));
-                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
-                },
-              ),
-              MenuButton(
-                title: 'สุ่มอาหารประเภทกับข้าว',
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Kubkhao();
+                    return RandomNormal();
                   }));
                   // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
                 },
@@ -143,7 +131,48 @@ class MenuScreen extends StatelessWidget {
                 title: 'สุ่มอาหารประเภทของหวาน',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return desert();
+                    return RandomDesert();
+                  }));
+                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
+                },
+              ),
+              const SizedBox(height: 20),
+              const Center(
+                child: Text(
+                  'เมนูอาหารตามประเภท',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 245, 47, 12),
+                thickness: 2,
+                indent: 100,
+                endIndent: 100,
+              ),
+              const SizedBox(height: 20),
+              MenuButton(
+                title: 'สุ่มอาหารประเภทเส้น',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RandomSen();
+                  }));
+                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
+                },
+              ),
+              MenuButton(
+                title: 'สุ่มอาหารประเภทข้าว',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RandomKhao();
+                  }));
+                  // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
+                },
+              ),
+              MenuButton(
+                title: 'สุ่มอาหารประเภทกับข้าว',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RandomKubkhao();
                   }));
                   // ใส่โค้ดที่ต้องการเมื่อกดปุ่ม
                 },
@@ -172,18 +201,18 @@ class MenuButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          side: BorderSide(color: Colors.white),
+          side: const BorderSide(color: Colors.white),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
               title,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const Icon(
               Icons.arrow_forward,

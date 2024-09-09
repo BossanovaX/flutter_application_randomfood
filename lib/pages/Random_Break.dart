@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_randomfood/pages/filp10_break.dart';
-import 'package:flutter_application_randomfood/pages/filp1_break%20.dart';
+import 'package:flutter_application_randomfood/filp/filp10_break.dart';
+import 'package:flutter_application_randomfood/filp/filp1_break%20.dart';
 import 'package:flutter_application_randomfood/services/database_service.dart';
 
 class chao extends StatelessWidget {
@@ -51,7 +51,7 @@ class _MenuCardState extends State<MenuCard> {
 
   Future<void> getitem() async {
     // แก้ไขให้กรองเฉพาะรายการอาหารเช้า
-    final itemlist = await _dbhelper.getFilteredFood('อาหารเช้า');
+    final itemlist = await _dbhelper.getfoodbytype('อาหารเช้า');
     setState(() {
       _item = itemlist;
     });
@@ -146,7 +146,7 @@ class _MenuCardState extends State<MenuCard> {
                   onPressed: () async {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return filp1chao();
+                      return Filp1Break();
                     }));
                     // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },
@@ -157,7 +157,7 @@ class _MenuCardState extends State<MenuCard> {
                   onPressed: () async {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return filpchao();
+                      return Filp10chao();
                     }));
                     // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },

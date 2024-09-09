@@ -34,14 +34,14 @@ class _CardFlipDemoState extends State<CardFlipDemo>
     'Burrito',
     'Curry',
     'Ramen',
-    'Fried Rice',
-    'Spring Rolls',
-    'Pad Thai',
-    'Kebab',
-    'Dumplings',
-    'Falafel',
-    'Quesadilla',
-    'Waffles'
+    // 'Fried Rice',
+    // 'Spring Rolls',
+    // 'Pad Thai',
+    // 'Kebab',
+    // 'Dumplings',
+    // 'Falafel',
+    // 'Quesadilla',
+    // 'Waffles'
   ];
 
   // รายการเมนูที่ถูกสุ่ม 10 เมนู

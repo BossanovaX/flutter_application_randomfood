@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_randomfood/pages/filp10_lunch.dart';
+import 'package:flutter_application_randomfood/filp/filp10_lunch.dart';
 
-import 'package:flutter_application_randomfood/pages/filp1_lunch.dart';
+import 'package:flutter_application_randomfood/filp/filp1_lunch.dart';
 import 'package:flutter_application_randomfood/services/database_service.dart';
 
 class lunch extends StatelessWidget {
@@ -53,7 +53,7 @@ class _MenuCardState extends State<MenuCard> {
 
   Future<void> getitem() async {
     // แก้ไขให้กรองเฉพาะรายการอาหารเช้า
-    final itemlist = await _dbhelper.getFilteredFood('อาหารกลางวัน');
+    final itemlist = await _dbhelper.getfoodbytype('อาหารกลางวัน');
     setState(() {
       _item = itemlist;
     });

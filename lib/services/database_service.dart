@@ -85,8 +85,23 @@ class DatabaseHelper {
   }
 
   // เพิ่มใน DatabaseHelper
-  Future<List<Map<String, dynamic>>> getFilteredFood(String type) async {
+  Future<List<Map<String, dynamic>>> getfoodbyname(String foodname) async {
+    Database db = await database;
+    return await db.query('food', where: 'name = ?', whereArgs: [foodname]);
+  }
+
+  Future<List<Map<String, dynamic>>> getfoodbytype(String type) async {
     Database db = await database;
     return await db.query('food', where: 'type = ?', whereArgs: [type]);
+  }
+
+  Future<List<Map<String, dynamic>>> getfoodbytype2(String type) async {
+    Database db = await database;
+    return await db.query('food', where: 'type2 = ?', whereArgs: [type]);
+  }
+
+  Future<List<Map<String, dynamic>>> getfoodbytype3(String type) async {
+    Database db = await database;
+    return await db.query('food', where: 'type3 = ?', whereArgs: [type]);
   }
 }
