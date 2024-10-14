@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "13536880310",
+    "firebase_url": "https://ginrai-9200f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ginrai-9200f",
+    "storage_bucket": "ginrai-9200f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13536880310:android:db6c091133fc33dccae817",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_randomfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "ur api"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

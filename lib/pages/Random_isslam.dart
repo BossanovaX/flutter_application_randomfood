@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_application_randomfood/filp/filp10_isslam.dart';
 import 'package:flutter_application_randomfood/filp/filp1_isslam.dart';
 
@@ -10,14 +9,19 @@ class issalam extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('เมนูสุ่มอาหารอิสลาม'),
+        title: Text('เมนูสุ่มอาหารอิสลาม', style: TextStyle(fontSize: 24)),
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 216, 200, 181),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          MenuCard(),
-          SizedBox(height: 16),
-        ],
+      body: Container(
+        decoration: BoxDecoration(color: Color(0xFFFEFAE0)),
+        child: ListView(
+          padding: EdgeInsets.all(16),
+          children: [
+            MenuCard(),
+            SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }
@@ -30,9 +34,7 @@ class MenuCard extends StatefulWidget {
 
 class _MenuCardState extends State<MenuCard> {
   final _foodnameController = TextEditingController();
-
   final _fooddecController = TextEditingController();
-
   final DatabaseHelper _dbhelper = DatabaseHelper.instance;
   List<Map<String, dynamic>> _item = [];
 
@@ -52,7 +54,6 @@ class _MenuCardState extends State<MenuCard> {
   }
 
   Future<void> getitem() async {
-    // แก้ไขให้กรองเฉพาะรายการอาหารเช้า
     final itemlist = await _dbhelper.getfoodbytype3('อิสลาม');
     setState(() {
       _item = itemlist;
@@ -61,9 +62,8 @@ class _MenuCardState extends State<MenuCard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getitem(); // โหลดข้อมูลเมื่อเริ่มต้น
+    getitem();
   }
 
   @override
@@ -72,7 +72,7 @@ class _MenuCardState extends State<MenuCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      elevation: 4,
+      elevation: 6,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -84,20 +84,20 @@ class _MenuCardState extends State<MenuCard> {
                 Center(
                   child: Text(
                     'ตัวอย่างภาพเมนูสุ่มอาหาร',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: IconButton(
-                    icon: Icon(Icons.help_outline,
-                        color: const Color.fromARGB(255, 0, 0, 0)),
+                    icon: Icon(Icons.help_outline, color: Colors.black54),
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
                           insetPadding: const EdgeInsets.all(16),
-                          title: Text('รายการอาหาร'),
+                          title: Text('รายการอาหาร',
+                              style: TextStyle(fontSize: 20)),
                           content: SizedBox(
                             width: 300,
                             height: 300,
@@ -111,7 +111,9 @@ class _MenuCardState extends State<MenuCard> {
                                     itemBuilder: (context, index) {
                                       final fooditem = _item[index];
                                       return ListTile(
-                                        title: Text(fooditem['name']),
+                                        title: Text(fooditem['name'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
                                         subtitle: Text(fooditem['description']),
                                       );
                                     },
@@ -133,10 +135,18 @@ class _MenuCardState extends State<MenuCard> {
                 height: 300,
                 child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage("assets/images/issaram.jpg"),
+                      image: AssetImage("assets/images/issa.jpg"),
                       fit: BoxFit.cover,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8.0,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -150,10 +160,14 @@ class _MenuCardState extends State<MenuCard> {
                         MaterialPageRoute(builder: (context) {
                       return Filp1Isslam();
                     }));
-                    // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },
-                  style: ElevatedButton.styleFrom(),
-                  child: Text('สุ่ม 1 ครั้ง'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 187, 176, 168),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  ),
+                  child: Text('สุ่ม 1 ครั้ง',
+                      style: TextStyle(
+                          fontSize: 18, color: Color.fromARGB(255, 0, 0, 0))),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -161,10 +175,14 @@ class _MenuCardState extends State<MenuCard> {
                         MaterialPageRoute(builder: (context) {
                       return Filp10Isslam();
                     }));
-                    // โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
                   },
-                  style: ElevatedButton.styleFrom(),
-                  child: Text('สุ่ม 10 ครั้ง'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 187, 176, 168),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  ),
+                  child: Text('สุ่ม 10 ครั้ง',
+                      style: TextStyle(
+                          fontSize: 18, color: Color.fromARGB(255, 0, 0, 0))),
                 ),
               ],
             ),

@@ -2,17 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_randomfood/main.dart';
 import 'package:flutter_application_randomfood/services/database_service.dart';
 
-class tripage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Text("Welcome"),
-        appBar: AppBar(
-          title: Text('เมนูสุ่ม'),
-        ));
-  }
-}
-
 class bgscreen extends StatelessWidget {
   final DatabaseHelper _dbhelper = DatabaseHelper.instance;
   @override
@@ -22,7 +11,7 @@ class bgscreen extends StatelessWidget {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/Tren3.jpg"),
+              image: AssetImage("assets/images/Tren4.png"),
               fit: BoxFit.cover,
             ),
           ),

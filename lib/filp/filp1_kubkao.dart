@@ -20,6 +20,8 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   List<Map<String, dynamic>> itemlist = [];
   List<Timer> _timers = [];
+  List<double> _opacityList =
+      List.generate(1, (_) => 0.0); // ใช้ควบคุมแอนิเมชันของการ์ด
 
   @override
   void initState() {
@@ -29,7 +31,7 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
 
   Future<void> _fetchBreakfastMenus() async {
     final List<Map<String, dynamic>> maps =
-        await _dbHelper.getfoodbytype2('กับข้าว'); // ใส่ type อาหารลงไป
+        await _dbHelper.getfoodbytype2('ข้าว'); // ใส่ type อาหารลงไป
 
     setState(() {
       if (maps.length >= 1) {
@@ -51,8 +53,6 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
     for (int i = 0; i < 1; i++) {
       int randomIndex = random.nextInt(menus.length);
       selectedMenus.add(menus[randomIndex]);
-
-      //selectedMenus.removeAt(randomIndex);
     }
     return selectedMenus;
   }
@@ -67,9 +67,9 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
       }));
     }
 
-    // Stop shuffling after 3 seconds and display the final result
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(milliseconds: 700), () {
       _stopShuffling();
+      _startCardAnimation();
     });
   }
 
@@ -86,9 +86,21 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
     });
   }
 
+  // ฟังก์ชันนี้ใช้เพื่อเริ่มแอนิเมชันการแสดงการ์ดทีละใบ
+  void _startCardAnimation() {
+    for (int i = 0; i < 1; i++) {
+      Future.delayed(Duration(milliseconds: i * 300), () {
+        setState(() {
+          _opacityList[i] = 1.0; // ทำให้การ์ดแต่ละใบค่อยๆ ปรากฏขึ้น
+        });
+      });
+    }
+  }
+
   void _reset() {
     setState(() {
       _timers.clear();
+      _opacityList = List.generate(1, (_) => 0.0); // รีเซ็ตค่าแอนิเมชัน
       _fetchBreakfastMenus();
     });
   }
@@ -96,7 +108,7 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
   Future<void> getnamefood(String namefood) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('food', namefood);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => testdes()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => menudes()));
   }
 
   @override
@@ -111,7 +123,7 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ผลการสุ่ม'),
+        title: Text('ผลการสุ่ม', style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           TextButton.icon(
             style: TextButton.styleFrom(backgroundColor: Colors.green),
@@ -123,17 +135,22 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
             ),
           ),
         ],
+        backgroundColor: Color(0xFF6B8A7A),
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(16),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
-          crossAxisSpacing: 30,
-          mainAxisSpacing: 30,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 15,
         ),
         itemCount: 1,
         itemBuilder: (context, index) {
-          return _buildTextItem(index);
+          return AnimatedOpacity(
+            opacity: _opacityList[index], // ใช้ค่าความทึบในการแสดงแอนิเมชัน
+            duration: Duration(milliseconds: 500),
+            child: _buildTextItem(index),
+          );
         },
       ),
     );
@@ -141,36 +158,64 @@ class _CardFlipDemoState extends State<Filp1Kubkao>
 
   Widget _buildTextItem(int index) {
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 150, 8, 8),
+      padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.orangeAccent,
-        borderRadius: BorderRadius.circular(10),
+        color: Color.fromARGB(255, 225, 250, 219), // ใช้โทนสีส้มอ่อน
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 3), // เงาใต้การ์ด
+          ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 100,
+          ),
           Text(
             _displayMenus[index],
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF6B8A7A),
+            ),
             textAlign: TextAlign.center,
           ),
           Text(
             _displayType[index],
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.brown.shade500,
+            ),
           ),
           Spacer(),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
-                onPressed: () {
-                  print(_displayMenus[index]);
-                  getnamefood(_displayMenus[index]);
-                  //โค้ดเมื่อกดปุ่มสุ่ม 10 ครั้ง
-                },
-                child: Text('เลือก')),
+              onPressed: () {
+                print(_displayMenus[index]);
+                getnamefood(_displayMenus[index]);
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.brown.shade500,
+                backgroundColor: Color(0xFF6B8A7A),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              ),
+              child: Text('เลือก',
+                  style: TextStyle(color: Colors.black, fontSize: 20)),
+            ),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           )
         ],
       ),
