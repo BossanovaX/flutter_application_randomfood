@@ -308,17 +308,17 @@ class MenuCard extends StatelessWidget {
             Icon(
               item.icon,
               size: 40,
-              color: item.iconColor, // ใช้สีที่กำหนดสำหรับไอคอน
+              color: item.iconColor, // สีไอคอน
             ),
             SizedBox(height: 8),
-            Text(
-              'สุ่มอาหาร :', // คำว่า "สุ่มอาหาร"
+            const Text(
+              'สุ่มอาหาร :',
               style: TextStyle(
                 fontSize: 14,
               ),
               textAlign: TextAlign.center,
             ),
-            //SizedBox(height: 8), // ระยะห่างระหว่างชื่อและประเภท
+            //SizedBox(height: 8)
             Text(
               '${item.title}', // แสดงประเภทอาหาร
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -326,7 +326,7 @@ class MenuCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 8), // ระยะห่างระหว่างประเภทและไอคอน
+            SizedBox(height: 8), // ระยะห่าง
           ],
         ),
       ),

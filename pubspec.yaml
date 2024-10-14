@@ -45,11 +45,14 @@ dependencies:
   location: ^6.0.2
   http: ^0.13.4
   url_launcher: ^6.0.20
+  flutter_launcher_icons: ^0.14.1
+  
 
 dev_dependencies:
+  
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.14.1"
+  
   flutter_lints: ^3.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -58,13 +61,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   
-
-
-
-flutter_icons:
+flutter_launcher_icons:
   android: true
-  ios: true
-  image_path: "assets/icon/ginraiicon.png"
+  image_path: "assets/icon.png"
+  adaptive_icon_background: "#FFFFFF"  # สีพื้นหลังสำหรับ adaptive icon
+  adaptive_icon_foreground: "assets/icon.png"
+
+  
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -73,7 +77,8 @@ flutter:
   assets:
     - assets/images/
     - assets/db/food_menu.db
-    - assets/icon/ginraiicon.png
+    - assets/testicon.png
+    
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

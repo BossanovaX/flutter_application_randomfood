@@ -2,7 +2,7 @@
     <application
         android:label="Ginrai"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,7 +31,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
             <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="urandroid"/>
+                android:value="AIzaSyA7vDLljmZhrdwCuzeBJIss17ntjR_fFCo"/>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
