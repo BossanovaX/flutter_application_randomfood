@@ -16,8 +16,7 @@ class _desmapState extends State<desmap> {
       Completer<GoogleMapController>();
   Set<Marker> _markers = {};
   var _locationData;
-  String apiKey =
-      'AIzaSyA7vDLljmZhrdwCuzeBJIss17ntjR_fFCo'; // ใส่ API Key ของคุณที่นี่
+  String apiKey = 'ใส่ api'; // ใส่ API Key ของคุณที่นี่
 
   @override
   void initState() {
